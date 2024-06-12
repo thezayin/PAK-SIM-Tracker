@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "530390776919",
+    "project_id": "pak-sim-details-bf05c",
+    "storage_bucket": "pak-sim-details-bf05c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530390776919:android:4442adc18bd2c3665eb712",
+        "android_client_info": {
+          "package_name": "com.thezayin.paksimdetails"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHHXNVUmQ9__2-vzD0x_-GxUVd7P9sNko"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
