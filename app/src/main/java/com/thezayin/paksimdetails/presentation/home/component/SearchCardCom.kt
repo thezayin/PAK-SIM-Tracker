@@ -30,7 +30,7 @@ fun SearchCardCom(
     navigator: DestinationsNavigator
 ) {
     Card(
-        
+
         modifier = modifier
             .padding(25.dp)
             .height(150.dp)
