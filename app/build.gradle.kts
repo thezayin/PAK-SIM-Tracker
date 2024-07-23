@@ -19,8 +19,8 @@ android {
         applicationId = "com.thezayin.paksimdetails"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 3
+        versionName = "1.0.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -62,7 +62,6 @@ dependencies {
     implementation(project(":ads"))
     implementation(project(":core"))
     implementation(project(":framework"))
-    implementation(project(":analytics"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -85,10 +84,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.common.java8)
 
-//neu morphic
-    implementation(libs.neumorphic)
-
-
     //koin dependency injection
     implementation(libs.koin.core)
     implementation(libs.koin.compose)
@@ -106,10 +101,6 @@ dependencies {
     implementation(libs.raamcosta.destination.core)
     ksp(libs.raamcosta.destination.ksp)
 
-    //lottie anim
-    implementation(libs.lottie.compose)
-    implementation(libs.androidx.animation)
-    implementation(libs.accompanist.navigation.animation)
 
     //firebase
     implementation(libs.firebase.analytics)
@@ -119,9 +110,7 @@ dependencies {
     implementation(libs.firebase.inappmessaging.display)
     implementation(libs.firebase.config)
     implementation(libs.jsoup.jsoup)
-
     implementation(libs.timber)
-    implementation("androidx.compose.ui:ui-graphics-android:1.6.7")
 
     implementation ("io.coil-kt:coil-gif:2.6.0")
     implementation ("io.coil-kt:coil-compose:2.6.0")

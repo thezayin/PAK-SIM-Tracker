@@ -3,9 +3,9 @@ package com.thezayin.framework.utils
 object Constants {
     const val BASE_URL = "https://simdatabaseonline.com.pk/search.php"
     const val PRIVATE_POLICY_URL =
-        "https://paksimdataprivacypolicy.blogspot.com/2024/05/privacy-policy.html"
+        "https://paksimdetails.blogspot.com/2024/06/terms-and-conditions-for-pak-sim-details.html"
     const val TERMS_CONDITIONS_URL =
-        "https://paksimdataprivacypolicy.blogspot.com/2024/05/terms-and-conditions.html"
+        "https://paksimdetails.blogspot.com/2024/06/terms-and-conditions-for-pak-sim-details.html"
     const val ABOUT_US_URL =
         "https://bluelockaboutus.blogspot.com/2024/03/about-us-welcome-to-blue-lock-your.html"
     const val TOPIC = "SIM"

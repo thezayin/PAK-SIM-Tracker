@@ -9,25 +9,21 @@ import com.thezayin.ads.AdBuilder
 import com.thezayin.ads.AdStatus
 
 class GoogleInterstitialAdBuilder(private val context: Context, private val id: String) :
-    AdBuilder<InterstitialAd>() {
-    override val platform: String = "AdMob_Interstitial"
+    AdBuilder<InterstitialAd> {
     override fun invoke(onAssign: (AdStatus<InterstitialAd>) -> Unit) {
         val adRequest = AdRequest.Builder().build()
 
-        InterstitialAd.load(
-            context, id, adRequest,
+        InterstitialAd.load(context, id, adRequest,
             object : InterstitialAdLoadCallback() {
-                override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                    super.onAdFailedToLoad(loadAdError)
-                    onAssign(AdStatus.Error(loadAdError))
+                override fun onAdFailedToLoad(error: LoadAdError) {
+                    super.onAdFailedToLoad(error)
+                    onAssign(AdStatus.Error(error))
                 }
 
                 override fun onAdLoaded(interstitialAd: InterstitialAd) {
                     super.onAdLoaded(interstitialAd)
                     onAssign(AdStatus.Loaded(interstitialAd))
-                    interstitialAd.setOnPaidEventListener { adValue ->
-                        onPaid?.invoke(adValue)
-                    }
+                    interstitialAd.setOnPaidEventListener{  adValue -> }
                 }
             })
     }

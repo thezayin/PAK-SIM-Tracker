@@ -2,6 +2,7 @@ package com.thezayin.paksimdetails.presentation.splash
 
 import android.annotation.SuppressLint
 import android.os.Build.VERSION.SDK_INT
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -51,7 +52,7 @@ fun SplashScreen(
     val context = LocalContext.current
 
     LaunchedEffect(Unit) {
-        delay(5000L)
+        delay(7000L)
         showAppOpenAd(
             activity = activity,
             googleManager = mainViewModel.googleManager,

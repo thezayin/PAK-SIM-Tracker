@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.ads.nativead.NativeAd
 import com.thezayin.ads.GoogleManager
-import com.thezayin.analytics.helpers.AnalyticsHelper
 import com.thezayin.framework.remote.RemoteConfig
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -15,7 +14,6 @@ import timber.log.Timber
 @SuppressLint("NewApi")
 class MainViewModel(
     val googleManager: GoogleManager,
-    val analyticsHelper: AnalyticsHelper,
     val remoteConfig: RemoteConfig
 ) : ViewModel() {
 

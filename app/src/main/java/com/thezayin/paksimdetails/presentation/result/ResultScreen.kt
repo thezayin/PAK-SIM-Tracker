@@ -13,11 +13,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -59,7 +56,6 @@ fun ResultScreen(
     val mainViewModel: MainViewModel = koinInject()
     val scope = rememberCoroutineScope()
     val nativeAd = remember { mainViewModel.nativeAd }
-    var checkNetwork by remember { mutableStateOf(false) }
     val context = LocalContext.current
     ComposableLifecycle { _, event ->
         when (event) {

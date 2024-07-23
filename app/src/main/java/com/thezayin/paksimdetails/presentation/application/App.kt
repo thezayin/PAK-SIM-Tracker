@@ -2,7 +2,6 @@ package com.thezayin.paksimdetails.presentation.application
 
 import android.app.Application
 import com.thezayin.ads.di.adModule
-import com.thezayin.analytics.di.analyticsHelperModule
 import com.thezayin.paksimdetails.presentation.servers.di.serverModule
 import com.thezayin.paksimdetails.di.appModule
 import org.koin.android.ext.koin.androidContext
@@ -18,7 +17,6 @@ class App : Application() {
             modules(appModule)
             modules(serverModule)
             modules(adModule)
-            modules(analyticsHelperModule)
         }
     }
 }

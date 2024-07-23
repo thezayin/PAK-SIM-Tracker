@@ -1,13 +1,10 @@
 package com.thezayin.framework.extension.ads
 
 import android.app.Activity
-import android.util.Log
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.thezayin.ads.GoogleManager
-import com.thezayin.analytics.events.AnalyticsEvent
-import com.thezayin.analytics.helpers.AnalyticsHelper
 
 fun showInterstitialAd(
     activity: Activity,
@@ -21,7 +18,12 @@ fun showInterstitialAd(
     }
 
     val adMob: InterstitialAd? = manager.createInterstitialAd()
-    adMob?.apply {
+    if (adMob == null) {
+        callBack(InterstitialAdStatus.AdNotAvailable)
+        return
+    }
+
+    adMob.apply {
         fullScreenContentCallback = AdmobInterListener(callBack)
         show(activity)
     }

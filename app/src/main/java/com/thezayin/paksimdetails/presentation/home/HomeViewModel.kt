@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.thezayin.ads.GoogleManager
-import com.thezayin.analytics.helpers.AnalyticsHelper
 import com.thezayin.framework.remote.RemoteConfig
 import com.thezayin.framework.utils.Response
 import com.thezayin.paksimdetails.domain.model.SimDataModel
@@ -21,7 +20,6 @@ import org.jsoup.nodes.Document
 class HomeViewModel(
     private val useCase: RemoteUseCase,
     val googleManager: GoogleManager,
-    val analyticsHelper: AnalyticsHelper,
     val remoteConfig: RemoteConfig
 ) : ViewModel() {
 

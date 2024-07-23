@@ -12,12 +12,18 @@ fun showAppOpenAd(
     showAd: Boolean = true,
     callBack: (() -> Unit)? = null,
 ): AppOpenAd? {
+    val ad = googleManager.createAppOpenAd()
     if (!showAd) {
         callBack?.invoke()
         return null
     }
-    val ad = googleManager.createAppOpenAd()
-    ad?.fullScreenContentCallback = object : FullScreenContentCallback() {
+
+    if (ad == null) {
+        callBack?.invoke()
+        return null
+    }
+
+    ad.fullScreenContentCallback = object : FullScreenContentCallback() {
         override fun onAdDismissedFullScreenContent() {
             super.onAdDismissedFullScreenContent()
             callBack?.invoke()
@@ -28,6 +34,6 @@ fun showAppOpenAd(
             callBack?.invoke()
         }
     }
-    ad?.show(activity)
+    ad.show(activity)
     return ad
 }

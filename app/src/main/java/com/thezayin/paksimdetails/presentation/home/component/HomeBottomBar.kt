@@ -1,4 +1,4 @@
-package com.thezayin.paksimdata.presentation.home.component
+package com.thezayin.paksimdetails.presentation.home.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,11 +28,7 @@ fun HomeBottomBar(
             .background(Color.Transparent),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-        GetAllServices(
-            mainViewModel = mainViewModel,
-            modifier = Modifier,
-            navigator = navigator
-        )
+
         if (mainViewModel.remoteConfig.showAdOnHomeScreenNative) {
             GoogleNativeAd(
                 modifier = Modifier,
