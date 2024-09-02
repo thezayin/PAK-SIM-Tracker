@@ -1,18 +1,17 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.ksp)
     id("kotlin-parcelize")
-    id ("com.google.devtools.ksp") version "1.9.22-1.0.17"
     id("kotlin-kapt")
 }
 
 android {
     namespace = "com.thezayin.analytics"
-    compileSdk = 34
+    compileSdk =  libs.versions.compileSdkVersion.get().toInt()
 
     defaultConfig {
-        minSdk = 24
-
+        minSdk = libs.versions.minSdkVersion.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }

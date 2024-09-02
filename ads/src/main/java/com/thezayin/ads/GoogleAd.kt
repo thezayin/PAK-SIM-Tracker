@@ -1,5 +1,6 @@
 package com.thezayin.ads
 
+import com.google.android.gms.ads.AdValue
 import com.google.android.gms.ads.LoadAdError
 
 sealed interface AdStatus<out T> {
@@ -8,7 +9,14 @@ sealed interface AdStatus<out T> {
     data class Error(val error: LoadAdError) : AdStatus<Nothing>
 }
 
-fun interface AdBuilder<T> : ((AdStatus<T>) -> Unit) -> Unit
+abstract class AdBuilder<T> : ((AdStatus<T>) -> Unit) -> Unit {
+    protected var onPaid: ((AdValue) -> Unit)? = null
+    abstract val platform: String
+
+    fun onPaid(onPaid: ((AdValue) -> Unit)) {
+        this.onPaid = onPaid
+    }
+}
 
 class GoogleAd<T>(val builder: AdBuilder<T>) {
     private var ads: MutableList<AdStatus<T>> = mutableListOf(
@@ -17,9 +25,9 @@ class GoogleAd<T>(val builder: AdBuilder<T>) {
     )
 
     init {
-        for (ad in ads) builder {
+        for (ad in ads) builder { adInstance ->
             ads.remove(ad)
-            ads.add(it)
+            ads.add(adInstance)
         }
     }
 
@@ -44,9 +52,6 @@ class GoogleAd<T>(val builder: AdBuilder<T>) {
                 ads.add(it)
             }
         }
-
         return instance?.data
-
     }
-
 }
