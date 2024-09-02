@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
                     android:background="@drawable/bg_ad_text"
-                    android:fontFamily="@font/gilroy_semibold"
+                    android:fontFamily="@font/gilroy_bold"
                     android:padding="2dp"
                     android:text="Ad"
                     android:textColor="@color/ad_text_color"

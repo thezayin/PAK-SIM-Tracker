@@ -13,3 +13,18 @@
 .externalNativeBuild
 .cxx
 local.properties
+androidApp/signing/**
+
+# Ignore Proguard folder
+proguard/
+
+# Ignore Log files
+*.log
+
+# Ignore generated APKs and AABs
+*.apk
+*.ap_
+*.aab
+
+# Ignore backup files
+*~
