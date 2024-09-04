@@ -9,7 +9,6 @@ import kotlinx.serialization.MissingFieldException
 import kotlinx.serialization.json.Json
 import timber.log.Timber
 
-private const val INIT_ADS = "init_ads"
 private const val SERVER_LIST = "server_list"
 private const val AD_CONFIGS = "ad_configs"
 
@@ -17,7 +16,6 @@ class RemoteConfig(
     private val json: Json
 ) {
     private val default: Map<String, Any> = mapOf(
-        INIT_ADS to true,
         SERVER_LIST to defaultServerUrl,
         AD_CONFIGS to defaultAdConfigs
     )
@@ -33,16 +31,11 @@ class RemoteConfig(
         }
     }
 
-    val initAds: Boolean
-        get() = config.getBoolean(INIT_ADS)
-
     val serverList: ServerUrl
         get() = try {
             val serverListJson = config.getString(SERVER_LIST)
-            Log.d("RemoteConfig", "ServerList JSON: $serverListJson")
             json.decodeFromString(ServerUrl.serializer(), serverListJson)
         } catch (e: Exception) {
-            Log.e("RemoteConfig", "Error decoding ServerList JSON", e)
             json.decodeFromString(ServerUrl.serializer(), defaultServerUrl)  // Fallback to default
         }
 
