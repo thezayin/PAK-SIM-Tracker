@@ -23,12 +23,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirebaseMessaging.getInstance().subscribeToTopic(Constants.TOPIC)
-        googleManager.init(this)
-        googleManager.initOnLastConsent()
-
+        if (remoteConfig.adConfigs.initAds) {
+            googleManager.init(this)
+            googleManager.initOnLastConsent()
+        }
         setContent {
-            val navController = rememberNavController()
             PakSimDetailsTheme {
+                val navController = rememberNavController()
                 NavHost(navController = navController)
             }
         }
