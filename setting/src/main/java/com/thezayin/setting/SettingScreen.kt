@@ -12,6 +12,7 @@ import com.thezayin.analytics.events.AnalyticsEvent
 import com.thezayin.common.component.GlassComponent
 import com.thezayin.common.component.SetBarColors
 import com.thezayin.framework.ads.interstitialAd
+import com.thezayin.framework.ads.showRewardedAd
 import com.thezayin.framework.lifecycles.ComposableLifecycle
 import com.thezayin.setting.component.SettingScreenContent
 import kotlinx.coroutines.delay
@@ -56,6 +57,7 @@ fun SettingScreen(
         modifier = Modifier,
         showAd = showBottomAd.value,
         nativeAd = nativeAd.value,
+        showPremium = viewModel.remoteConfig.adConfigs.showPremium,
         onBackClick = {
             activity.interstitialAd(
                 scope = scope,
@@ -65,8 +67,7 @@ fun SettingScreen(
             ) { onBackClick() }
         },
         onPremiumClick = {
-            activity.interstitialAd(
-                scope = scope,
+            activity.showRewardedAd(
                 analytics = viewModel.analytics,
                 googleManager = viewModel.googleManager,
                 showAd = viewModel.remoteConfig.adConfigs.adOnPremiumClick

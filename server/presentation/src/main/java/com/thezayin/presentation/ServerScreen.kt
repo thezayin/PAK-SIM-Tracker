@@ -11,10 +11,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
 import com.thezayin.analytics.events.AnalyticsEvent
 import com.thezayin.common.component.GlassComponent
-import com.thezayin.common.component.SetBarColors
 import com.thezayin.common.dailogs.ErrorDialog
 import com.thezayin.common.dailogs.LoadingDialog
 import com.thezayin.framework.ads.interstitialAd
+import com.thezayin.framework.ads.showRewardedAd
 import com.thezayin.framework.lifecycles.ComposableLifecycle
 import com.thezayin.framework.nativead.GoogleNativeAd
 import com.thezayin.framework.nativead.GoogleNativeAdStyle
@@ -87,6 +87,7 @@ fun ServerScreen(
             showBottomAd = showBottomAd,
             nativeAd = nativeAd.value,
             modifier = Modifier,
+            showPremium = viewModel.remoteConfig.adConfigs.showPremium,
             list = it,
             onBackClick = {
                 activity.interstitialAd(
@@ -99,26 +100,24 @@ fun ServerScreen(
                 }
             },
             onPremiumClick = {
-                activity.interstitialAd(
-                    scope = scope,
+                activity.showRewardedAd(
                     analytics = viewModel.analytics,
                     googleManager = viewModel.googleManager,
                     showAd = viewModel.remoteConfig.adConfigs.adOnPremiumClick
                 ) { onPremiumClick() }
             },
-            onServerClick = {
-                activity.interstitialAd(
-                    scope = scope,
+            onServerClick = { serv ->
+                activity.showRewardedAd(
                     analytics = viewModel.analytics,
                     googleManager = viewModel.googleManager,
                     showAd = viewModel.remoteConfig.adConfigs.onServerClick
                 ) {
                     viewModel.analytics.logEvent(
                         AnalyticsEvent.ServerSelectionEvent(
-                            status = it
+                            status = serv
                         )
                     )
-                    onServerClick(it)
+                    onServerClick(serv)
                 }
             }
         )

@@ -27,6 +27,21 @@ import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import com.thezayin.data.di.provideDatabase
+import com.thezayin.data.di.provideHistoryDao
+import com.thezayin.data.repository.HistoryRepositoryImpl
+import com.thezayin.domain.repository.HistoryRepository
+import com.thezayin.domain.usecase.AddHistory
+import com.thezayin.domain.usecase.AddHistoryImpl
+import com.thezayin.domain.usecase.ClearHistoryUseCase
+import com.thezayin.domain.usecase.ClearHistoryUseCaseImpl
+import com.thezayin.domain.usecase.GetHistory
+import com.thezayin.domain.usecase.GetHistoryImpl
+import com.thezayin.presentation.HistoryViewModel
+import org.koin.androidx.viewmodel.dsl.viewModelOf
+import org.koin.core.module.dsl.singleOf
+import org.koin.dsl.bind
+import org.koin.dsl.module
 
 val appModule = module {
     single { Json { ignoreUnknownKeys = true } }
@@ -45,6 +60,16 @@ val analyticsModule = module {
 
 val splashModule = module {
     viewModelOf(::SplashViewModel)
+}
+
+val historyModule = module {
+    single { provideDatabase(get()) }
+    single { provideHistoryDao(get()) }
+    singleOf(::HistoryRepositoryImpl) bind HistoryRepository::class
+    singleOf(::AddHistoryImpl) bind AddHistory::class
+    viewModelOf(::HistoryViewModel)
+    singleOf(::ClearHistoryUseCaseImpl) bind ClearHistoryUseCase::class
+    singleOf(::GetHistoryImpl) bind GetHistory::class
 }
 
 val homeModule = module {

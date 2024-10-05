@@ -14,10 +14,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
 import com.thezayin.analytics.events.AnalyticsEvent
 import com.thezayin.common.component.GlassComponent
-import com.thezayin.common.component.SetBarColors
 import com.thezayin.common.dailogs.ErrorDialog
 import com.thezayin.common.dailogs.LoadingDialog
-import com.thezayin.framework.ads.interstitialAd
+import com.thezayin.framework.ads.showRewardedAd
 import com.thezayin.framework.lifecycles.ComposableLifecycle
 import com.thezayin.framework.nativead.GoogleNativeAd
 import com.thezayin.framework.nativead.GoogleNativeAdStyle
@@ -29,7 +28,7 @@ import org.koin.compose.koinInject
 
 @Composable
 fun HomeScreen(
-    onPremiumClick: () -> Unit,
+    onHistoryClick: () -> Unit,
     onMenuClick: () -> Unit,
     onServerClick: () -> Unit,
 ) {
@@ -85,8 +84,7 @@ fun HomeScreen(
                 }
             }
 
-            else -> {
-            }
+            else -> {}
         }
     }
 
@@ -97,20 +95,19 @@ fun HomeScreen(
         nativeAd = nativeAd.value,
         showNativeAd = showNativeAd.value,
         result = state.result,
+        showPremium = viewModel.remoteConfig.adConfigs.showPremium,
         resultNotFound = state.resultNotFound,
-        onPremiumClick = {
-            activity.interstitialAd(
-                scope = scope,
+        onHistoryClick = {
+            activity.showRewardedAd(
                 analytics = viewModel.analytics,
                 googleManager = viewModel.googleManager,
                 showAd = viewModel.remoteConfig.adConfigs.adOnPremiumClick
             ) {
-                onPremiumClick()
+                onHistoryClick()
             }
         },
         onMenuClick = {
-            activity.interstitialAd(
-                scope = scope,
+            activity.showRewardedAd(
                 analytics = viewModel.analytics,
                 googleManager = viewModel.googleManager,
                 showAd = viewModel.remoteConfig.adConfigs.adOnSettingClick
@@ -119,8 +116,7 @@ fun HomeScreen(
             }
         },
         onServerClick = {
-            activity.interstitialAd(
-                scope = scope,
+            activity.showRewardedAd(
                 analytics = viewModel.analytics,
                 googleManager = viewModel.googleManager,
                 showAd = viewModel.remoteConfig.adConfigs.adOnServerClick
@@ -128,17 +124,16 @@ fun HomeScreen(
                 onServerClick()
             }
         },
-        onSearchClick = {
-            activity.interstitialAd(
-                scope = scope,
+        onSearchClick = { res ->
+            activity.showRewardedAd(
                 analytics = viewModel.analytics,
                 googleManager = viewModel.googleManager,
                 showAd = viewModel.remoteConfig.adConfigs.adOnSearchClick
             ) {
-                viewModel.searchNumber(it)
+                viewModel.searchNumber(res)
                 viewModel.analytics.logEvent(
                     AnalyticsEvent.SearchNumberClick(
-                        status = it
+                        status = res
                     )
                 )
             }

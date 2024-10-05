@@ -76,7 +76,6 @@ class GoogleManager(
         }
     }
 
-    fun createRewardedInterstitialAd() = ifNotSubscribed { googleRewardedInterstitialAd?.get() }
     fun createAppOpenAd() = ifNotSubscribed { googleAppOpen?.get() }
     fun createInterstitialAd() = ifNotSubscribed { googleInterAd?.get() }
     fun createNativeAd(): NativeAd? = ifNotSubscribed { googleNativeAd?.get() }

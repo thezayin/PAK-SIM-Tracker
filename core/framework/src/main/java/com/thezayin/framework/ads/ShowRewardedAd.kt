@@ -14,23 +14,23 @@ import com.google.android.gms.ads.OnUserEarnedRewardListener
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.thezayin.ads.GoogleManager
 import com.thezayin.analytics.analytics.Analytics
+import com.thezayin.analytics.events.AnalyticsEvent
 import timber.log.Timber
 
-fun showRewardedAd(
+fun Activity.showRewardedAd(
     googleManager: GoogleManager,
-    context: Activity?,
     analytics: Analytics,
+    showAd: Boolean,
     callback: (RewardedAdStatus) -> Unit,
 ) {
     var admobAd: RewardedAd? = googleManager.createRewardedAd()
 
-    if (context == null) {
-        Timber.tag("Rewarded Ad Status").e("Null Context")
+    if (!showAd) {
         callback.invoke(RewardedAdStatus.AdNotAvailable)
         return
     }
 
-    if (!isConnected(context)) {
+    if (!isConnected(this)) {
         Timber.tag("Rewarded Ad Status").e("Not Connected")
         callback.invoke(RewardedAdStatus.AdNotAvailable)
         return
@@ -42,7 +42,7 @@ fun showRewardedAd(
         return
     } else {
         callback.invoke(RewardedAdStatus.AdAvailable)
-        admobAd.show(context, OnUserEarnedRewardListener {
+        admobAd.show(this, OnUserEarnedRewardListener {
             callback.invoke(RewardedAdStatus.UserRewarded)
         })
     }
@@ -60,6 +60,11 @@ fun showRewardedAd(
 
         override fun onAdImpression() {
             super.onAdImpression()
+            analytics.logEvent(
+                AnalyticsEvent.InterstitialAdEvent(
+                    status = "Interstitial_Ad_Impression"
+                )
+            )
         }
 
         override fun onAdFailedToShowFullScreenContent(p0: AdError) {

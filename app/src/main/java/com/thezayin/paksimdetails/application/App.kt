@@ -4,6 +4,7 @@ import android.app.Application
 import com.thezayin.di.adModule
 import com.thezayin.di.analyticsModule
 import com.thezayin.di.appModule
+import com.thezayin.di.historyModule
 import com.thezayin.di.homeModule
 import com.thezayin.di.premiumModule
 import com.thezayin.di.serverModule
@@ -29,7 +30,8 @@ class App : Application() {
                 serverModule,
                 settingModule,
                 premiumModule,
-                analyticsModule
+                analyticsModule,
+                historyModule
             )
         }
     }

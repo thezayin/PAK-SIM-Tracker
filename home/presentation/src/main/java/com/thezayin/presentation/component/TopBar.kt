@@ -17,7 +17,7 @@ import ir.kaaveh.sdpcompose.sdp
 @Composable
 internal fun TopBar(
     onMenuClick: () -> Unit = {},
-    onPremiumClick: () -> Unit = {},
+    onHistoryClick: () -> Unit = {},
     modifier: Modifier
 ) {
     Row(
@@ -28,27 +28,24 @@ internal fun TopBar(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_menu),
-                contentDescription = null,
-                modifier = Modifier
-                    .clickable {
-                        onMenuClick()
-                    }
-                    .size(25.sdp)
-                    .padding(6.sdp),
-            )
-
-
-            Image(
-                painter = painterResource(id = R.drawable.ic_crown),
-                contentDescription = null,
-                modifier = Modifier
-                    .clickable {
-                        onPremiumClick()
-                    }
-                    .size(25.sdp)
-                    .padding(6.sdp),
-            )
-        }
+        Image(
+            painter = painterResource(id = R.drawable.ic_menu),
+            contentDescription = null,
+            modifier = Modifier
+                .clickable {
+                    onMenuClick()
+                }
+                .size(25.sdp)
+                .padding(6.sdp),
+        )
+        Image(
+            painter = painterResource(id = R.drawable.ic_history),
+            contentDescription = null,
+            modifier = Modifier
+                .clickable {
+                    onHistoryClick()
+                }
+                .size(20.sdp),
+        )
+    }
 }

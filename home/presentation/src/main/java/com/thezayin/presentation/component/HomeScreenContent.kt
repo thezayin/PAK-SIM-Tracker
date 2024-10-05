@@ -23,9 +23,10 @@ fun HomeScreenContent(
     modifier: Modifier,
     nativeAd: NativeAd?,
     result: ResultModel?,
+    showPremium: Boolean,
     resultNotFound: Boolean?,
     showNativeAd: Boolean?,
-    onPremiumClick: () -> Unit,
+    onHistoryClick: () -> Unit,
     onMenuClick: () -> Unit,
     onServerClick: () -> Unit,
     onSearchClick: (String) -> Unit,
@@ -39,9 +40,16 @@ fun HomeScreenContent(
         topBar = {
             Column {
                 TopBar(
-                    modifier = Modifier, onMenuClick = onMenuClick, onPremiumClick = onPremiumClick
+                    modifier = Modifier, onMenuClick = onMenuClick, onHistoryClick = onHistoryClick
                 )
-                ServerBar(onServerClick = onServerClick)
+                if (showNativeAd == true) {
+                    GoogleNativeAd(
+                        modifier = Modifier, style = GoogleNativeAdStyle.Small, nativeAd = nativeAd
+                    )
+                }
+                if (showPremium) {
+                    ServerBar(onServerClick = onServerClick)
+                }
             }
         },
         bottomBar = {
@@ -75,7 +83,8 @@ fun HomeScreenContent(
                     address = result.address,
                     number = result.number
                 )
-            }
+            } ?: TipsAndTricksSection()
+
             resultNotFound?.let {
                 ResultNotFound(modifier = Modifier)
             }
