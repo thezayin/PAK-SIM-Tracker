@@ -70,6 +70,7 @@ dependencies {
     implementation(project(":premium"))
 
     implementation(project(":home:presentation"))
+    implementation(project(":recent:presentation"))
     implementation(project(":splash"))
     implementation(project(":server:presentation"))
 

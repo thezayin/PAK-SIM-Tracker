@@ -15,6 +15,7 @@ import com.thezayin.common.component.SetBarColors
 import com.thezayin.common.dailogs.ErrorDialog
 import com.thezayin.common.dailogs.LoadingDialog
 import com.thezayin.framework.ads.interstitialAd
+import com.thezayin.framework.ads.showRewardedAd
 import com.thezayin.framework.lifecycles.ComposableLifecycle
 import com.thezayin.framework.nativead.GoogleNativeAd
 import com.thezayin.framework.nativead.GoogleNativeAdStyle
@@ -93,6 +94,7 @@ fun WebScreen(
         showBottomAd = showBottomAd.value,
         nativeAd = nativeAd,
         backEnabled = backEnabled,
+        showPremium = viewModel.remoteConfig.adConfigs.showPremium,
         infoDialog = infoDialog,
         showLoading = { viewModel.showLoading() },
         hideLoading = { viewModel.hideLoading() },
@@ -105,8 +107,7 @@ fun WebScreen(
             ) { onBackPress() }
         },
         onPremiumClick = {
-            activity.interstitialAd(
-                scope = scope,
+            activity.showRewardedAd(
                 analytics = viewModel.analytics,
                 googleManager = viewModel.googleManager,
                 showAd = viewModel.remoteConfig.adConfigs.adOnPremiumClick

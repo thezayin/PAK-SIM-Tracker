@@ -22,11 +22,11 @@ import androidx.compose.ui.unit.sp
 import ir.kaaveh.sdpcompose.sdp
 import ir.kaaveh.sdpcompose.ssp
 
-@Preview
 @Composable
 fun TopBar(
     modifier: Modifier = Modifier,
     screenName: String = "Servers",
+    showPremium: Boolean,
     onBackClick: () -> Unit = {},
     onPremiumClick: () -> Unit = {}
 ) {
@@ -56,15 +56,17 @@ fun TopBar(
             fontFamily = FontFamily(Font(com.thezayin.values.R.font.abeezee_italic)),
         )
 
-        Image(
-            painter = painterResource(id = com.thezayin.values.R.drawable.ic_crown),
-            contentDescription = null,
-            modifier = Modifier
-                .clickable {
-                    onPremiumClick()
-                }
-                .size(40.dp)
-                .padding(10.dp),
-        )
+        if (showPremium) {
+            Image(
+                painter = painterResource(id = com.thezayin.values.R.drawable.ic_crown),
+                contentDescription = null,
+                modifier = Modifier
+                    .clickable {
+                        onPremiumClick()
+                    }
+                    .size(40.dp)
+                    .padding(10.dp),
+            )
+        }
     }
 }

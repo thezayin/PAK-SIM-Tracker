@@ -37,6 +37,7 @@ fun WebScreenContent(
     url: String,
     backEnabled: MutableState<Boolean>,
     infoDialog: MutableState<Boolean>,
+    showPremium: Boolean,
     showLoading: () -> Unit,
     hideLoading: () -> Unit,
     onBackClick: () -> Unit,
@@ -71,6 +72,7 @@ fun WebScreenContent(
                 modifier = Modifier,
                 onBackClick = onBackClick,
                 onPremiumClick = onPremiumClick,
+                showPremium = showPremium,
                 screenName = "Server"
             )
         },

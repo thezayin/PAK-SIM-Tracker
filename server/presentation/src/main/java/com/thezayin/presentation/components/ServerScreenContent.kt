@@ -20,6 +20,7 @@ import ir.kaaveh.sdpcompose.sdp
 @Composable
 fun ServerScreenContent(
     modifier: Modifier,
+    showPremium: Boolean,
     onBackClick: () -> Unit,
     onPremiumClick: () -> Unit,
     onServerClick: (String) -> Unit,
@@ -37,6 +38,7 @@ fun ServerScreenContent(
                 modifier = Modifier,
                 onBackClick = onBackClick,
                 onPremiumClick = onPremiumClick,
+                showPremium = showPremium,
                 screenName = "Servers"
             )
         },

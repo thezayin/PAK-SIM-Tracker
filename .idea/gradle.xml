@@ -22,6 +22,10 @@
             <option value="$PROJECT_DIR$/home/domain" />
             <option value="$PROJECT_DIR$/home/presentation" />
             <option value="$PROJECT_DIR$/premium" />
+            <option value="$PROJECT_DIR$/recent" />
+            <option value="$PROJECT_DIR$/recent/data" />
+            <option value="$PROJECT_DIR$/recent/domain" />
+            <option value="$PROJECT_DIR$/recent/presentation" />
             <option value="$PROJECT_DIR$/server" />
             <option value="$PROJECT_DIR$/server/data" />
             <option value="$PROJECT_DIR$/server/domain" />

@@ -4,8 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.thezayin.presentation.HomeScreen
 import com.thezayin.premium.PremiumScreen
+import com.thezayin.presentation.HistoryScreen
+import com.thezayin.presentation.HomeScreen
 import com.thezayin.presentation.ServerScreen
 import com.thezayin.setting.SettingScreen
 import com.thezayin.splash.SplashScreen
@@ -16,6 +17,10 @@ fun NavHost(navController: NavHostController) {
     androidx.navigation.compose.NavHost(
         navController = navController, startDestination = SplashScreenNav
     ) {
+        composable<HistoryScreenNav> {
+            HistoryScreen(onBackPress = { navController.navigateUp() })
+        }
+
         composable<SplashScreenNav> {
             SplashScreen(onNavigate = {
                 navController.navigate(HomeScreenNav)
@@ -25,8 +30,8 @@ fun NavHost(navController: NavHostController) {
         composable<HomeScreenNav> {
             HomeScreen(onMenuClick = {
                 navController.navigate(SettingScreenNav)
-            }, onPremiumClick = {
-                navController.navigate(PremiumScreenNav)
+            }, onHistoryClick = {
+                navController.navigate(HistoryScreenNav)
             }, onServerClick = {
                 navController.navigate(ServerScreenNav)
             })

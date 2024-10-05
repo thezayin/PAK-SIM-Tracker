@@ -1,5 +1,6 @@
 package com.thezayin.presentation
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -7,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.ads.nativead.NativeAd
 import com.thezayin.ads.GoogleManager
 import com.thezayin.analytics.analytics.Analytics
+import com.thezayin.domain.model.HistoryModel
 import com.thezayin.domain.model.ResultModel
+import com.thezayin.domain.usecase.AddHistory
 import com.thezayin.domain.usecase.GetResult
 import com.thezayin.framework.remote.RemoteConfig
 import com.thezayin.framework.utils.Response
@@ -21,14 +24,22 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class HomeViewModel(
     val googleManager: GoogleManager,
     val remoteConfig: RemoteConfig,
     val analytics: Analytics,
     private val getResult: GetResult,
+    private val addHistory: AddHistory
 ) :
     ViewModel() {
+
+    @SuppressLint("SimpleDateFormat")
+    val sdf = SimpleDateFormat("dd/M/yyyy")
+    private val currentDate: String = sdf.format(Date())
+
     var nativeAd = mutableStateOf<NativeAd?>(null)
         private set
 
@@ -103,6 +114,27 @@ class HomeViewModel(
         }
     }
 
+    private fun addToHistory(
+        number: String,
+        searchSuccess: Boolean,
+        name: String?,
+        cnic: String?,
+        address: String?
+    ) = viewModelScope.launch {
+        addHistory(
+            HistoryModel(
+                searchSuccess = searchSuccess,
+                phoneNumber = number,
+                date = currentDate,
+                name = name,
+                cnic = cnic,
+                address = address
+            )
+        ).collect {
+            Log.d("ResultViewModel", "addToHistory: $it")
+        }
+    }
+
     fun searchNumber(phoneNumber: String) = viewModelScope.launch {
         getResult(phoneNumber)
             .catch { e ->
@@ -120,16 +152,17 @@ class HomeViewModel(
                         setResultNotFound()
                         delay(2000L)
                         val doc: Document = Jsoup.parse(response.data)
-
                         val notFoundMessage = doc.select("h4").firstOrNull()?.text()
                         if (notFoundMessage?.contains("Records Not Found") == true) {
                             // If the message is found, update the state to show the "no result" UI
+                            addToHistory(phoneNumber, false, null, null, null)
                             resultNotFound(false)
                             hideLoading()
                             return@collect
                         }
                         val table = doc.select("table")
                         val rows = table.select("tr")
+                        val results = mutableListOf<ResultModel>()
                         for (row in rows) {
                             val cols = row.select("td")
                             for (col in cols) {
@@ -139,9 +172,23 @@ class HomeViewModel(
                                     cnic = cols[2].text(),
                                     address = cols[3].text()
                                 )
+                                results.add(result)
                                 resultSuccess(result)
                             }
                         }
+                        if (results.isNotEmpty()) {
+                            // Assuming you want to add a history entry per phone number search
+                            // You can aggregate results or pick the first one
+                            val firstResult = results.first()
+                            addToHistory(
+                                number = phoneNumber,
+                                searchSuccess = true,
+                                name = firstResult.name,
+                                cnic = firstResult.cnic,
+                                address = firstResult.address
+                            )
+                        }
+
                         hideLoading()
                     }
 
@@ -189,6 +236,7 @@ class HomeViewModel(
     private fun setResultNull() {
         resultUiEvent(ResultUiEvents.ResultSuccess(null))
     }
+
     private fun setResultNotFound() {
         resultUiEvent(ResultUiEvents.ShowResultNotFound(null))
     }

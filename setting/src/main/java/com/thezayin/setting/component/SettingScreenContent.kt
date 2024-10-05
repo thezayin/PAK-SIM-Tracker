@@ -20,6 +20,7 @@ import ir.kaaveh.sdpcompose.sdp
 @Composable
 fun SettingScreenContent(
     modifier: Modifier,
+    showPremium: Boolean,
     onBackClick: () -> Unit,
     onPremiumClick: () -> Unit,
     showAd: Boolean?,
@@ -32,12 +33,22 @@ fun SettingScreenContent(
             .navigationBarsPadding(),
         containerColor = colorResource(id = com.thezayin.values.R.color.background),
         topBar = {
-            TopBar(
-                modifier = Modifier,
-                onBackClick = onBackClick,
-                onPremiumClick = onPremiumClick,
-                screenName = "Settings"
-            )
+            Column {
+                TopBar(
+                    modifier = Modifier,
+                    showPremium = showPremium,
+                    onBackClick = onBackClick,
+                    onPremiumClick = onPremiumClick,
+                    screenName = "Settings"
+                )
+                if (showAd == true) {
+                    GoogleNativeAd(
+                        modifier = Modifier,
+                        style = GoogleNativeAdStyle.Small,
+                        nativeAd = nativeAd
+                    )
+                }
+            }
         },
         bottomBar = {
             if (showAd == true) {

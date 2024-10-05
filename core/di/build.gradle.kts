@@ -51,6 +51,10 @@ dependencies {
     implementation(project(":server:domain"))
     implementation(project(":server:presentation"))
 
+    implementation(project(":recent:data"))
+    implementation(project(":recent:domain"))
+    implementation(project(":recent:presentation"))
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
