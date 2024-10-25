@@ -70,6 +70,6 @@ fun HistoryScreen(
             Log.d("jejeHistoryScreen", "onDeleteClick")
             viewModel.deleteSearchHistory()
         },
-        getNativeAd = { viewModel.getNativeAd() },
+        getNativeAd = { /*viewModel.getNativeAd()*/ },
     )
 }

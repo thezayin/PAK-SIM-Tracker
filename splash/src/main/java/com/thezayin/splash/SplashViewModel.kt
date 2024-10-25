@@ -19,11 +19,11 @@ class SplashViewModel(
     var nativeAd = mutableStateOf<NativeAd?>(null)
         private set
 
-    fun getNativeAd() = viewModelScope.launch {
-        nativeAd.value = googleManager.createNativeAd().apply {
-        } ?: run {
-            delay(10000)
-            googleManager.createNativeAd()
-        }
-    }
+//    fun getNativeAd() = viewModelScope.launch {
+//        nativeAd.value = googleManager.createNativeAd().apply {
+//        } ?: run {
+//            delay(10000)
+//            googleManager.createNativeAd()
+//        }
+//    }
 }

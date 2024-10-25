@@ -1,9 +1,11 @@
 package com.thezayin.ads.builders
 
 import android.content.Context
+import android.util.Log
 import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdValue
 import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.nativead.NativeAd
 import com.thezayin.ads.AdBuilder
@@ -16,41 +18,62 @@ class GoogleNativeAdBuilder(
     private val id: String,
     private val analytics: Analytics
 ) : AdBuilder<NativeAd>() {
-    override val platform: String = "Admob_Native"
 
+    override val platform: String = "AdMob_Native"
     override fun invoke(onAssign: (AdStatus<NativeAd>) -> Unit) {
-        val loader = AdLoader.Builder(context, id)
-            .forNativeAd {
-                onAssign(AdStatus.Loaded(it))
-                it.setOnPaidEventListener { adValue ->
-                    onPaid?.invoke(adValue)
-                    analytics.logEvent(
-                        AnalyticsEvent.AdPaidEvent(
-                            event = "AdPaid",
-                            provider = platform,
-                            value = (adValue.valueMicros / 1000000.0).toString()
-                        )
-                    )
-                }
+        Log.d("GoogleNativeAdBuilder", "Attempting to load NativeAd with ID: $id")
+
+        val adLoader = AdLoader.Builder(context, id)
+            .forNativeAd { nativeAd ->
+                Log.d("GoogleNativeAdBuilder", "NativeAd loaded successfully.")
+                onAssign(AdStatus.Loaded(nativeAd))
+                setupPaidEvent(nativeAd)
             }
             .withAdListener(object : AdListener() {
                 override fun onAdImpression() {
                     super.onAdImpression()
-                    analytics.logEvent(
-                        AnalyticsEvent.AdImpressionEvent(
-                            event = "AdImpression",
-                            provider = platform
-                        )
-                    )
+                    Log.d("GoogleNativeAdBuilder", "NativeAd impression recorded.")
+                    logAdImpression()
                 }
 
                 override fun onAdFailedToLoad(error: LoadAdError) {
                     super.onAdFailedToLoad(error)
+                    Log.e("GoogleNativeAdBuilder", "Failed to load NativeAd: ${error.message}")
                     onAssign(AdStatus.Error(error))
                 }
             })
             .build()
 
-        loader.loadAd(AdRequest.Builder().build())
+        adLoader.loadAd(createAdRequest())
+    }
+
+    private fun createAdRequest(): AdRequest {
+        return AdRequest.Builder().build()
+    }
+    private fun setupPaidEvent(nativeAd: NativeAd) {
+        nativeAd.setOnPaidEventListener { adValue ->
+            Log.d("GoogleNativeAdBuilder", "NativeAd paid event received: ${adValue.valueMicros} micros")
+            onPaid?.invoke(adValue)
+            logAdPaidEvent(adValue)
+        }
+    }
+    private fun logAdPaidEvent(adValue: AdValue) {
+        analytics.logEvent(
+            AnalyticsEvent.AdPaidEvent(
+                event = "AdPaid",
+                provider = platform,
+                value = (adValue.valueMicros / 1_000_000.0).toString()
+            )
+        )
+        Log.d("GoogleNativeAdBuilder", "AdPaidEvent logged with value: ${(adValue.valueMicros / 1_000_000.0)}")
+    }
+    private fun logAdImpression() {
+        analytics.logEvent(
+            AnalyticsEvent.AdImpressionEvent(
+                event = "AdImpression",
+                provider = platform
+            )
+        )
+        Log.d("GoogleNativeAdBuilder", "AdImpressionEvent logged.")
     }
 }

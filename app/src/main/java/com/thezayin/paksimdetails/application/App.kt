@@ -11,6 +11,7 @@ import com.thezayin.di.serverModule
 import com.thezayin.di.settingModule
 import com.thezayin.di.splashModule
 import com.thezayin.di.webModule
+import com.thezayin.paksimdetails.game.presentation.di.gameModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -31,7 +32,8 @@ class App : Application() {
                 settingModule,
                 premiumModule,
                 analyticsModule,
-                historyModule
+                historyModule,
+                gameModule
             )
         }
     }

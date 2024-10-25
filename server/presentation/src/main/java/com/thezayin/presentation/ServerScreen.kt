@@ -1,20 +1,27 @@
 package com.thezayin.presentation
 
 import android.app.Activity
+import android.util.Log
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.Lifecycle
 import com.thezayin.analytics.events.AnalyticsEvent
 import com.thezayin.common.component.GlassComponent
 import com.thezayin.common.dailogs.ErrorDialog
 import com.thezayin.common.dailogs.LoadingDialog
+import com.thezayin.framework.ads.InterstitialAdStatus
 import com.thezayin.framework.ads.interstitialAd
-import com.thezayin.framework.ads.showRewardedAd
 import com.thezayin.framework.lifecycles.ComposableLifecycle
 import com.thezayin.framework.nativead.GoogleNativeAd
 import com.thezayin.framework.nativead.GoogleNativeAdStyle
@@ -42,6 +49,7 @@ fun ServerScreen(
         remember { mutableStateOf(viewModel.remoteConfig.adConfigs.nativeAdOnServerLoadingDialog) }
 
     viewModel.analytics.logEvent(AnalyticsEvent.ScreenViewEvent("ServerScreen"))
+    var isLoading = remember { mutableStateOf(false) }
 
     GlassComponent()
 
@@ -94,32 +102,55 @@ fun ServerScreen(
                     scope = scope,
                     googleManager = viewModel.googleManager,
                     analytics = viewModel.analytics,
-                    showAd = viewModel.remoteConfig.adConfigs.adOnBackPress
-                ) {
-                    onBackPress()
+                    showAd = viewModel.remoteConfig.adConfigs.adOnBackPress,
+                    showLoadingIndicator = { isLoading.value = true },    // Show loading indicator
+                    hideLoadingIndicator = { isLoading.value = false },    // Hide loading indicator
+                ) { adStatus ->
+                    when (adStatus) {
+                        is InterstitialAdStatus.AdNotAvailable -> {
+                            Log.d("jejeScreen", "Ad not available")
+                            onBackPress()
+                        }
+
+                        is InterstitialAdStatus.Shown -> {
+                            Log.d("jejeScreen", "Ad was shown")
+                            onBackPress()
+                        }
+
+                        is InterstitialAdStatus.AdAvailable -> {
+                            // Optional: Already handled by timeout in interstitialAd
+                            // No action needed here
+                        }
+                    }
                 }
             },
             onPremiumClick = {
-                activity.showRewardedAd(
-                    analytics = viewModel.analytics,
-                    googleManager = viewModel.googleManager,
-                    showAd = viewModel.remoteConfig.adConfigs.adOnPremiumClick
-                ) { onPremiumClick() }
+                onPremiumClick()
             },
             onServerClick = { serv ->
-                activity.showRewardedAd(
-                    analytics = viewModel.analytics,
-                    googleManager = viewModel.googleManager,
-                    showAd = viewModel.remoteConfig.adConfigs.onServerClick
-                ) {
-                    viewModel.analytics.logEvent(
-                        AnalyticsEvent.ServerSelectionEvent(
-                            status = serv
-                        )
+                viewModel.analytics.logEvent(
+                    AnalyticsEvent.ServerSelectionEvent(
+                        status = serv
                     )
-                    onServerClick(serv)
-                }
+                )
+                onServerClick(serv)
             }
         )
+    }
+
+    LoadingOverlay(visible = isLoading.value)
+}
+
+@Composable
+fun LoadingOverlay(visible: Boolean) {
+    if (visible) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.5f)),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
     }
 }

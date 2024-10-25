@@ -36,7 +36,7 @@ fun PremiumScreen(
             Lifecycle.Event.ON_START -> {
                 scope.launch {
                     while (this.isActive) {
-                        viewModel.getNativeAd()
+                       /* viewModel.getNativeAd()*/
                         delay(20000L)
                     }
                 }

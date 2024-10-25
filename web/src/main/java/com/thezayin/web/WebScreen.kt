@@ -99,18 +99,18 @@ fun WebScreen(
         showLoading = { viewModel.showLoading() },
         hideLoading = { viewModel.hideLoading() },
         onBackClick = {
-            activity.interstitialAd(
-                scope = scope,
-                analytics = viewModel.analytics,
-                googleManager = viewModel.googleManager,
-                showAd = viewModel.remoteConfig.adConfigs.adOnBackPress
-            ) { onBackPress() }
+//            activity.interstitialAd(
+//                scope = scope,
+//                analytics = viewModel.analytics,
+//                googleManager = viewModel.googleManager,
+//                showAd = viewModel.remoteConfig.adConfigs.adOnBackPress
+//            ) { onBackPress() }
         },
         onPremiumClick = {
-            activity.showRewardedAd(
-                analytics = viewModel.analytics,
-                googleManager = viewModel.googleManager,
-                showAd = viewModel.remoteConfig.adConfigs.adOnPremiumClick
-            ) { onPremiumClick() }
+//            activity.showRewardedAd(
+//                analytics = viewModel.analytics,
+//                googleManager = viewModel.googleManager,
+//                showAd = viewModel.remoteConfig.adConfigs.adOnPremiumClick
+//            ) { onPremiumClick() }
         })
 }

@@ -20,7 +20,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.lifecycle.Lifecycle
 import com.thezayin.analytics.events.AnalyticsEvent
 import com.thezayin.common.component.GlassComponent
-import com.thezayin.framework.ads.showRewardedAd
 import com.thezayin.framework.lifecycles.ComposableLifecycle
 import com.thezayin.framework.nativead.GoogleNativeAd
 import com.thezayin.framework.nativead.GoogleNativeAdStyle
@@ -53,7 +52,7 @@ fun SplashScreen(
             Lifecycle.Event.ON_START -> {
                 scope.launch {
                     while (this.isActive) {
-                        viewModel.getNativeAd()
+                      /*  viewModel.getNativeAd()*/
                         delay(20000L)
                     }
                 }
@@ -65,11 +64,7 @@ fun SplashScreen(
 
     LaunchedEffect(Unit) {
         delay(4000)
-        activity.showRewardedAd(
-            analytics = viewModel.analytics,
-            googleManager = viewModel.googleManager,
-            showAd = viewModel.remoteConfig.adConfigs.adOnSplashScreen,
-        ) { onNavigate() }
+        onNavigate()
     }
 
     Scaffold(

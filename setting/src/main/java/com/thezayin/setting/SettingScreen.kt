@@ -43,7 +43,7 @@ fun SettingScreen(
             Lifecycle.Event.ON_START -> {
                 scope.launch {
                     while (this.isActive) {
-                        viewModel.getNativeAd()
+                     /*   viewModel.getNativeAd()*/
                         delay(20000L)
                     }
                 }
@@ -59,19 +59,19 @@ fun SettingScreen(
         nativeAd = nativeAd.value,
         showPremium = viewModel.remoteConfig.adConfigs.showPremium,
         onBackClick = {
-            activity.interstitialAd(
-                scope = scope,
-                analytics = viewModel.analytics,
-                googleManager = viewModel.googleManager,
-                showAd = viewModel.remoteConfig.adConfigs.adOnBackPress
-            ) { onBackClick() }
+//            activity.interstitialAd(
+//                scope = scope,
+//                analytics = viewModel.analytics,
+//                googleManager = viewModel.googleManager,
+//                showAd = viewModel.remoteConfig.adConfigs.adOnBackPress
+//            ) { onBackClick() }
         },
         onPremiumClick = {
-            activity.showRewardedAd(
-                analytics = viewModel.analytics,
-                googleManager = viewModel.googleManager,
-                showAd = viewModel.remoteConfig.adConfigs.adOnPremiumClick
-            ) { onPremiumClick() }
+//            activity.showRewardedAd(
+//                analytics = viewModel.analytics,
+//                googleManager = viewModel.googleManager,
+//                showAd = viewModel.remoteConfig.adConfigs.adOnPremiumClick
+//            ) { onPremiumClick() }
         }
     )
 }

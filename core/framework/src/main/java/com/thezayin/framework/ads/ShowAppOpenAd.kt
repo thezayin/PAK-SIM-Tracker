@@ -20,29 +20,29 @@ fun Activity.showAppOpenAd(
         return null
     }
 
-    val ad = googleManager.createAppOpenAd()
-    ad?.let {
-        ad.fullScreenContentCallback = object : FullScreenContentCallback() {
-            override fun onAdDismissedFullScreenContent() {
-                super.onAdDismissedFullScreenContent()
-                callBack.invoke()
-            }
-
-            override fun onAdImpression() {
-                super.onAdImpression()
-                analytics.logEvent(
-                    AnalyticsEvent.AppOpenAdEvent(
-                        status = "Interstitial_Ad_Impression"
-                    )
-                )
-            }
-
-            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                super.onAdFailedToShowFullScreenContent(p0)
-                callBack.invoke()
-            }
-        }
-        ad.show(this)
-    } ?: callBack.invoke()
-    return ad
+//    val ad = googleManager.createAppOpenAd()
+//    ad?.let {
+//        ad.fullScreenContentCallback = object : FullScreenContentCallback() {
+//            override fun onAdDismissedFullScreenContent() {
+//                super.onAdDismissedFullScreenContent()
+//                callBack.invoke()
+//            }
+//
+//            override fun onAdImpression() {
+//                super.onAdImpression()
+//                analytics.logEvent(
+//                    AnalyticsEvent.AppOpenAdEvent(
+//                        status = "Interstitial_Ad_Impression"
+//                    )
+//                )
+//            }
+//
+//            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+//                super.onAdFailedToShowFullScreenContent(p0)
+//                callBack.invoke()
+//            }
+//        }
+//        ad.show(this)
+//    } ?: callBack.invoke()
+    return null
 }

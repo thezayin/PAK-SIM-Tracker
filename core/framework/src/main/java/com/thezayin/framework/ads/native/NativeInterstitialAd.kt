@@ -10,20 +10,20 @@ import kotlinx.coroutines.CoroutineScope
  *
  * Use this method only if embedding the layout is not an option.
  * */
-fun GoogleManager.createNativeInterstitialAd(
-    context: Context,
-    scope: CoroutineScope,
-    nativeAd: NativeAd? = createNativeAd(),
-    onDismiss: () -> Unit
-) {
-    if (nativeAd == null) {
-        onDismiss()
-        return
-    }
-
-    NativeInterstitialAds(
-        context = context,
-        ad = nativeAd,
-        scope = scope
-    ).apply { setOnDismissListener { onDismiss() } }.show()
-}
+//fun GoogleManager.createNativeInterstitialAd(
+//    context: Context,
+//    scope: CoroutineScope,
+//    nativeAd: NativeAd? = createNativeAd(),
+//    onDismiss: () -> Unit
+//) {
+//    if (nativeAd == null) {
+//        onDismiss()
+//        return
+//    }
+//
+//    NativeInterstitialAds(
+//        context = context,
+//        ad = nativeAd,
+//        scope = scope
+//    ).apply { setOnDismissListener { onDismiss() } }.show()
+//}

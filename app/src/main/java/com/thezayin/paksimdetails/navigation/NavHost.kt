@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.thezayin.paksimdetails.game.presentation.components.MemoryGameScreen
 import com.thezayin.premium.PremiumScreen
 import com.thezayin.presentation.HistoryScreen
 import com.thezayin.presentation.HomeScreen
@@ -20,6 +21,9 @@ fun NavHost(navController: NavHostController) {
         composable<HistoryScreenNav> {
             HistoryScreen(onBackPress = { navController.navigateUp() })
         }
+        composable<MemoryGameScreenNav> {
+            MemoryGameScreen(navigateUp = { navController.navigateUp() })
+        }
 
         composable<SplashScreenNav> {
             SplashScreen(onNavigate = {
@@ -31,7 +35,7 @@ fun NavHost(navController: NavHostController) {
             HomeScreen(onMenuClick = {
                 navController.navigate(SettingScreenNav)
             }, onHistoryClick = {
-                navController.navigate(HistoryScreenNav)
+                navController.navigate(MemoryGameScreenNav)
             }, onServerClick = {
                 navController.navigate(ServerScreenNav)
             })

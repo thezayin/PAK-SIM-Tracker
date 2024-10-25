@@ -47,11 +47,11 @@ class HomeViewModel(
     val resultUiState = _resultUiState.asStateFlow()
 
     fun getNativeAd() = viewModelScope.launch {
-        nativeAd.value = googleManager.createNativeAd().apply {
-        } ?: run {
-            delay(10000)
-            googleManager.createNativeAd()
-        }
+//        nativeAd.value = googleManager.createNativeAd().apply {
+//        } ?: run {
+//            delay(10000)
+//            googleManager.createNativeAd()
+//        }
     }
 
     private fun resultUiEvent(event: ResultUiEvents) {

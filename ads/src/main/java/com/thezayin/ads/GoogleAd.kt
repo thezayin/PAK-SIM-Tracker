@@ -1,5 +1,6 @@
 package com.thezayin.ads
 
+import android.util.Log
 import com.google.android.gms.ads.AdValue
 import com.google.android.gms.ads.LoadAdError
 
@@ -18,40 +19,50 @@ abstract class AdBuilder<T> : ((AdStatus<T>) -> Unit) -> Unit {
     }
 }
 
-class GoogleAd<T>(val builder: AdBuilder<T>) {
-    private var ads: MutableList<AdStatus<T>> = mutableListOf(
-        AdStatus.Loading,
-        AdStatus.Loading
-    )
+class GoogleAd<T>(private val builder: AdBuilder<T>) {
+    private var adInstance: AdStatus<T> = AdStatus.Loading
+    private var isLoading = false
 
-    init {
-        for (ad in ads) builder { adInstance ->
-            ads.remove(ad)
-            ads.add(adInstance)
+    /**
+     * Initiates the ad loading process.
+     *
+     * @param onLoading Callback invoked when the ad starts loading.
+     * @param onAdReady Callback invoked when the ad is ready or unavailable.
+     */
+    fun get(onLoading: () -> Unit, onAdReady: (T?) -> Unit) {
+        when (val instance = adInstance) {
+            is AdStatus.Loaded -> {
+                Log.d("jejeGoogleAd", "Ad loaded")
+                onAdReady(instance.data)
+                // Do not reload the ad here to prevent multiple loads
+            }
+            is AdStatus.Error -> {
+                Log.e("jejeGoogleAd", "Failed to load ad: ${instance.error}")
+                onLoading()
+                loadAd()
+                onAdReady(null)
+            }
+            is AdStatus.Loading -> {
+                Log.d("jejeGoogleAd", "Loading ad...")
+                onLoading()
+                loadAd() // Initiate ad loading
+            }
         }
     }
 
-    fun get(): T? {
-        // Handle any ad that has failed to load
-        for (err in ads.filterIsInstance<AdStatus.Error>()) {
-            ads.remove(err)
-            builder {
-                ads.add(it)
-            }
-        }
+    /**
+     * Starts loading the ad using the builder.
+     */
+    fun loadAd() {
+        if (isLoading) return
+        isLoading = true
+        adInstance = AdStatus.Loading
+        Log.d("jejeGoogleAd", "Initiating ad load...")
 
-        // Return the first loaded ad
-        val instance = ads
-            .filterIsInstance<AdStatus.Loaded<T>>()
-            .firstOrNull()
-
-        // Remove the ad from the list and create a new one
-        if (instance != null) {
-            ads.remove(instance)
-            builder {
-                ads.add(it)
-            }
+        builder { adStatus ->
+            Log.d("jejeGoogleAd", "Ad loaded $adStatus")
+            adInstance = adStatus
+            isLoading = false
         }
-        return instance?.data
     }
 }

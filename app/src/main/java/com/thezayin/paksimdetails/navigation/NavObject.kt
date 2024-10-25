@@ -22,3 +22,6 @@ object PremiumScreenNav
 
 @Serializable
 object HistoryScreenNav
+
+@Serializable
+object MemoryGameScreenNav

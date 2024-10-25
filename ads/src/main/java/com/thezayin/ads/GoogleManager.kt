@@ -2,6 +2,7 @@ package com.thezayin.ads
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
@@ -39,25 +40,73 @@ class GoogleManager(
     )
 
     fun init(activity: Activity) {
-        consentManager.getUserConsent(activity = activity,
-            onConsentGranted = { loadAds() },
-            onError = { loadAds() })
+        loadAds()
     }
 
     fun initOnLastConsent() = consentManager.ifCanRequestAds { loadAds() }
 
     private fun loadAds() {
-        MobileAds.initialize(context)
-        if (debug) MobileAds.setRequestConfiguration(
-            RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
+        MobileAds.initialize(context) {
+            Log.d("GoogleManager", "MobileAds initialized.")
+        }
+        if (debug) {
+            MobileAds.setRequestConfiguration(
+                RequestConfiguration.Builder()
+                    .setTestDeviceIds(testDeviceIds)
+                    .build()
+            )
+            Log.d("GoogleManager", "Test device IDs set.")
+        }
+
+        // Correctly instantiate ad builders
+        googleRewardedInterstitialAd = GoogleAd(
+            GoogleRewardedInterstitialAdBuilder(
+                context = context,
+                id = AdUnit.rewardedInterstitial.resolve(debug),
+                analytics = analytics
+            ).withAnalytics()
         )
 
-        googleRewardedInterstitialAd =
-            ::GoogleRewardedInterstitialAdBuilder.from(AdUnit.rewardedInterstitial)
-        googleRewardedAd = ::GoogleRewardedAdBuilder.from(AdUnit.rewarded)
-        googleInterAd = ::GoogleInterstitialAdBuilder.from(AdUnit.interstitial)
-        googleAppOpen = ::GoogleAppOpenAdBuilder.from(AdUnit.appOpen)
-        googleNativeAd = ::GoogleNativeAdBuilder.from(AdUnit.native)
+        googleRewardedAd = GoogleAd(
+            GoogleRewardedAdBuilder(
+                context = context,
+                id = AdUnit.rewarded.resolve(debug),
+                analytics = analytics
+            ).withAnalytics()
+        )
+
+        googleInterAd = GoogleAd(
+            GoogleInterstitialAdBuilder(
+                context = context,
+                id = AdUnit.interstitial.resolve(debug),
+                analytics = analytics
+            ).withAnalytics()
+        )
+
+        googleAppOpen = GoogleAd(
+            GoogleAppOpenAdBuilder(
+                context = context,
+                id = AdUnit.appOpen.resolve(debug),
+                analytics = analytics
+            ).withAnalytics()
+        )
+
+        googleNativeAd = GoogleAd(
+            GoogleNativeAdBuilder(
+                context = context,
+                id = AdUnit.native.resolve(debug),
+                analytics = analytics
+            ).withAnalytics()
+        )
+
+        // Pre-load all ad types
+        googleRewardedInterstitialAd?.loadAd()
+        googleRewardedAd?.loadAd()
+        googleInterAd?.loadAd()
+        googleAppOpen?.loadAd()
+        googleNativeAd?.loadAd()
+
+        Log.d("GoogleManager", "All ad builders initialized and ads are loading.")
     }
 
     private fun <T> ((Context, String, Analytics) -> AdBuilder<T>).from(unit: AdUnit) = GoogleAd(
@@ -76,9 +125,45 @@ class GoogleManager(
         }
     }
 
-    fun createAppOpenAd() = ifNotSubscribed { googleAppOpen?.get() }
-    fun createInterstitialAd() = ifNotSubscribed { googleInterAd?.get() }
-    fun createNativeAd(): NativeAd? = ifNotSubscribed { googleNativeAd?.get() }
-    fun createRewardedAd() = ifNotSubscribed { googleRewardedAd?.get() }
+    fun createAppOpenAd(onLoading: () -> Unit, onAdReady: (AppOpenAd?) -> Unit) {
+        googleAppOpen?.get(
+            onLoading = onLoading,
+            onAdReady = onAdReady
+        ) ?: run {
+            Log.e("GoogleManager", "AppOpenAd builder is not initialized.")
+            onAdReady(null)
+        }
+    }
+
+    fun createInterstitialAd(onLoading: () -> Unit, onAdReady: (InterstitialAd?) -> Unit) {
+        googleInterAd?.get(
+            onLoading = onLoading,
+            onAdReady = onAdReady
+        ) ?: run {
+            Log.e("GoogleManager", "InterstitialAd builder is not initialized.")
+            onAdReady(null)
+        }
+    }
+
+    fun createNativeAd(onLoading: () -> Unit, onAdReady: (NativeAd?) -> Unit) {
+        googleNativeAd?.get(
+            onLoading = onLoading,
+            onAdReady = onAdReady
+        ) ?: run {
+            Log.e("GoogleManager", "NativeAd builder is not initialized.")
+            onAdReady(null)
+        }
+    }
+
+    fun createRewardedAd(onLoading: () -> Unit, onAdReady: (RewardedAd?) -> Unit) {
+        googleRewardedAd?.get(
+            onLoading = onLoading,
+            onAdReady = onAdReady
+        ) ?: run {
+            Log.e("jejeGoogleManager", "RewardedAd builder is not initialized.")
+            onAdReady(null)
+        }
+    }
+
     private fun <T : Any?> ifNotSubscribed(block: () -> T?) = block()
 }
