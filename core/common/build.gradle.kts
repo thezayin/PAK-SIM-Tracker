@@ -35,8 +35,6 @@ android {
 
 dependencies {
 
-    implementation(project(":core:values"))
-    implementation(project(":core:framework"))
     implementation(project(":ads"))
 
     implementation(libs.androidx.core.ktx)

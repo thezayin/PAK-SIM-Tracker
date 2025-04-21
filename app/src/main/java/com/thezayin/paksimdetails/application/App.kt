@@ -1,29 +1,33 @@
 package com.thezayin.paksimdetails.application
 
 import android.app.Application
-import com.thezayin.di.adModule
-import com.thezayin.di.analyticsModule
-import com.thezayin.di.appModule
-import com.thezayin.di.historyModule
-import com.thezayin.di.homeModule
-import com.thezayin.di.premiumModule
-import com.thezayin.di.serverModule
-import com.thezayin.di.settingModule
-import com.thezayin.di.splashModule
-import com.thezayin.di.webModule
-import com.thezayin.paksimdetails.game.presentation.di.gameModule
+import com.google.android.gms.ads.MobileAds
+import com.thezayin.paksimdetails.ui.di.analyticsModule
+import com.thezayin.paksimdetails.ui.di.appModule
+import com.thezayin.paksimdetails.ui.di.historyModule
+import com.thezayin.paksimdetails.ui.di.homeModule
+import com.thezayin.paksimdetails.ui.di.premiumModule
+import com.thezayin.paksimdetails.ui.di.serverModule
+import com.thezayin.paksimdetails.ui.di.settingModule
+import com.thezayin.paksimdetails.ui.di.splashModule
+import com.thezayin.paksimdetails.ui.di.webModule
+import com.thezayin.paksimdetails.ui.result.presentation.di.resultModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import timber.log.Timber
 
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
+        MobileAds.initialize(this) { initializationStatus ->
+            Timber.d("AdMob Initialization: ${initializationStatus.adapterStatusMap}")
+        }
         startKoin {
             androidLogger()
             androidContext(this@App)
             modules(
-                adModule,
+                resultModule,
                 webModule,
                 appModule,
                 homeModule,
@@ -33,7 +37,6 @@ class App : Application() {
                 premiumModule,
                 analyticsModule,
                 historyModule,
-                gameModule
             )
         }
     }

@@ -4,14 +4,16 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.thezayin.paksimdetails.game.presentation.components.MemoryGameScreen
-import com.thezayin.premium.PremiumScreen
-import com.thezayin.presentation.HistoryScreen
-import com.thezayin.presentation.HomeScreen
-import com.thezayin.presentation.ServerScreen
-import com.thezayin.setting.SettingScreen
-import com.thezayin.splash.SplashScreen
-import com.thezayin.web.WebScreen
+import com.thezayin.paksimdetails.ui.history.presentation.HistoryScreen
+import com.thezayin.paksimdetails.ui.home.presentation.HomeScreen
+import com.thezayin.paksimdetails.ui.language.presentation.LanguageScreen
+import com.thezayin.paksimdetails.ui.onboarding.OnboardingScreen
+import com.thezayin.paksimdetails.ui.premium.PremiumScreen
+import com.thezayin.paksimdetails.ui.result.presentation.ResultScreen
+import com.thezayin.paksimdetails.ui.server.presentation.ServerScreen
+import com.thezayin.paksimdetails.ui.setting.SettingScreen
+import com.thezayin.paksimdetails.ui.splash.SplashScreen
+import com.thezayin.paksimdetails.ui.web.WebScreen
 
 @Composable
 fun NavHost(navController: NavHostController) {
@@ -21,24 +23,64 @@ fun NavHost(navController: NavHostController) {
         composable<HistoryScreenNav> {
             HistoryScreen(onBackPress = { navController.navigateUp() })
         }
-        composable<MemoryGameScreenNav> {
-            MemoryGameScreen(navigateUp = { navController.navigateUp() })
+
+        composable<LanguageScreenNav> {
+            LanguageScreen(
+                navigateToOnboarding = {
+                    navController.navigate(OnboardingScreenNav) {
+                        popUpTo(SplashScreenNav) {
+                            inclusive = true
+                        }
+                    }
+                },
+            )
         }
 
         composable<SplashScreenNav> {
-            SplashScreen(onNavigate = {
+            SplashScreen(
+                navigateToLanguageScreen = {
+                    navController.navigate(LanguageScreenNav) {
+                        popUpTo(SplashScreenNav) {
+                            inclusive = true
+                        }
+                    }
+                },
+                navigateToHome = {
+                    navController.navigate(HomeScreenNav)
+                }
+            )
+        }
+
+        composable<OnboardingScreenNav> {
+            OnboardingScreen(navigateToHome = {
                 navController.navigate(HomeScreenNav)
             })
         }
 
         composable<HomeScreenNav> {
-            HomeScreen(onMenuClick = {
-                navController.navigate(SettingScreenNav)
-            }, onHistoryClick = {
-                navController.navigate(MemoryGameScreenNav)
-            }, onServerClick = {
-                navController.navigate(ServerScreenNav)
-            })
+            HomeScreen(
+                onMenuClick = {
+                    navController.navigate(SettingScreenNav)
+                }, onHistoryClick = {
+                    navController.navigate(HistoryScreenNav)
+                }, onServerClick = {
+                    navController.navigate(ServerScreenNav)
+                },
+                onSearchClick = { number ->
+                    navController.navigate(ResultScreenNav(number))
+                }
+            )
+        }
+
+        composable<ResultScreenNav> {
+            val args = it.toRoute<ResultScreenNav>()
+            ResultScreen(
+                phoneNumber = args.phoneNumber,
+                onBackPress = { navController.navigateUp() },
+                onPremiumClick = {
+                    navController.navigate(PremiumScreenNav)
+                }
+            )
         }
 
         composable<ServerScreenNav> {
@@ -51,7 +93,8 @@ fun NavHost(navController: NavHostController) {
 
         composable<WebScreenNav> {
             val args = it.toRoute<WebScreenNav>()
-            WebScreen(url = args.url,
+            WebScreen(
+                url = args.url,
                 onBackPress = { navController.navigateUp() },
                 onPremiumClick = {
                     navController.navigate(PremiumScreenNav)

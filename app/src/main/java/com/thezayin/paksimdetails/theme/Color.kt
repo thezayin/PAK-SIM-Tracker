@@ -1,4 +1,4 @@
-package com.thezayin.paksimdetails.ui.theme
+package com.thezayin.paksimdetails.theme
 
 import androidx.compose.ui.graphics.Color
 

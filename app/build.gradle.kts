@@ -46,6 +46,7 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
         dataBinding = true
     }
@@ -57,22 +58,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":ads"))
-    implementation(project(":analytics"))
-
-    implementation(project(":core:di"))
-    implementation(project(":core:common"))
-    implementation(project(":core:values"))
-    implementation(project(":core:framework"))
-
-    implementation(project(":web"))
-    implementation(project(":setting"))
-    implementation(project(":premium"))
-
-    implementation(project(":home:presentation"))
-    implementation(project(":recent:presentation"))
-    implementation(project(":splash"))
-    implementation(project(":server:presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -109,6 +94,16 @@ dependencies {
     implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.logging)
     implementation(libs.ktor.client.serialize)
+    implementation(libs.ktor.client.cio)
+    implementation(libs.ktor.server.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.timber)
+
+    //room database
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.kotlinx.serialization.json)
 
     //navigation
     implementation(libs.androidx.navigation.compose)
@@ -122,5 +117,12 @@ dependencies {
     implementation(libs.firebase.config)
     implementation(libs.jsoup.jsoup)
 
+    implementation (libs.coil.compose)
+    implementation(libs.play.services.ads)
+    implementation(libs.sdp.compose)
     implementation(libs.timber)
+    implementation(libs.coil.gif)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    implementation(libs.user.messaging.platform)
 }

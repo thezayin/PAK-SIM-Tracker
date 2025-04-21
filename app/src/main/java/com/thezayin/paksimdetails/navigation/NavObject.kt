@@ -24,4 +24,10 @@ object PremiumScreenNav
 object HistoryScreenNav
 
 @Serializable
-object MemoryGameScreenNav
+object OnboardingScreenNav
+
+@Serializable
+data class ResultScreenNav(val phoneNumber: String)
+
+@Serializable
+object LanguageScreenNav

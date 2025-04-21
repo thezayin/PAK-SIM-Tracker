@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "530390776919",
-    "project_id": "pak-sim-details-bf05c",
-    "storage_bucket": "pak-sim-details-bf05c.appspot.com"
+    "project_number": "868103726977",
+    "project_id": "pak-sim-tracker-android",
+    "storage_bucket": "pak-sim-tracker-android.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:530390776919:android:4442adc18bd2c3665eb712",
+        "mobilesdk_app_id": "1:868103726977:android:2136a1a4bc242ac6a72a80",
         "android_client_info": {
           "package_name": "com.thezayin.paksimdetails"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDHHXNVUmQ9__2-vzD0x_-GxUVd7P9sNko"
+          "current_key": "AIzaSyD7pKsn1gu4k7lYRcUjNX3dKR4M7Of6HTU"
         }
       ],
       "services": {

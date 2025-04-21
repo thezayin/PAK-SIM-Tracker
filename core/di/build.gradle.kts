@@ -34,26 +34,8 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:framework"))
     implementation(project(":analytics"))
-    implementation(project(":splash"))
     implementation(project(":ads"))
-
-    implementation(project(":web"))
-    implementation(project(":setting"))
-    implementation(project(":premium"))
-
-    implementation(project(":home:data"))
-    implementation(project(":home:domain"))
-    implementation(project(":home:presentation"))
-
-    implementation(project(":server:data"))
-    implementation(project(":server:domain"))
-    implementation(project(":server:presentation"))
-
-    implementation(project(":recent:data"))
-    implementation(project(":recent:domain"))
-    implementation(project(":recent:presentation"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

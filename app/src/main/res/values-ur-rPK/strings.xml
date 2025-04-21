@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">پاک سم تفصیلات</string>
+    <string name="ads_title">اشتہار</string>
+    <string name="ad">اشتہار</string>
+
+    <string name="loading_settings">سیٹنگز لوڈ ہو رہی ہیں…</string>
+    <string name="loading">لوڈ ہو رہا ہے…</string>
+    <string name="finishing_up">اختتام پزیر ہو رہا ہے…</string>
+    <string name="please_wait">براہ کرم انتظار کریں…</string>
+    <string name="almost_there">تقریباً پہنچ گئے ہیں…</string>
+
+    <string name="enter_number">نمبر داخل کریں</string>
+    <string name="number_placeholder">03121234567</string>
+    <string name="invalid_number_warning">براہ کرم ایک درست نمبر داخل کریں</string>
+    <string name="search_button_label">تلاش کریں</string>
+    <string name="more_servers">مزید سرورز</string>
+    <string name="tips_and_tricks_title">ٹپس اور ٹرکس</string>
+    <string name="tips_and_tricks_list">• اضافی چارجز سے بچنے کے لیے اپنے ڈیٹا کے استعمال کی نگرانی کریں۔\n• موثر استعمال کے لیے ڈیٹا بچانے کا موڈ فعال کریں۔</string>
+    <string name="error_message">کچھ خرابی پیش آ گئی ہے۔ براہ کرم دوبارہ کوشش کریں۔</string>
+    <string name="done_button_text">ہو گیا</string>
+    <string name="loading_message">براہ کرم انتظار کریں....</string>
+    <string name="result_not_found_message">نتیجہ نہیں ملا، براہ کرم دوسرے سرورز آزما کر دیکھیں</string>
+    <string name="no_history_found">کوئی تاریخ نہیں ملی</string>
+    <string name="success">کامیابی</string>
+    <string name="failed">ناکامی</string>
+    <string name="name_not_found">نام نہیں ملا</string>
+    <string name="cnic_not_found">سی این آئی سی نہیں ملا</string>
+    <string name="address_not_found">پتہ نہیں ملا</string>
+    <string name="result_not_found">ڈیٹا بیس میں نتیجہ نہیں ملا</string>
+    <string name="no_recent_searches">کوئی حالیہ تلاش نہیں ہے</string>
+    <string name="name_label">نام</string>
+    <string name="cnic_label">سی این آئی سی:</string>
+    <string name="address_label">پتہ:</string>
+    <string name="number_label">نمبر:</string>
+    <string name="data_not_found">سرور میں ڈیٹا نہیں ملا</string>
+    <string name="data_not_found_message">ڈیٹا نہیں ملا، دوسرے سرورز آزما کر دیکھیں</string>
+    <string name="result_screen_name">نتیجہ</string>
+    <string name="use_vpn_message">سرورز تک رسائی کے لیے وی پی این استعمال کریں۔</string>
+    <string name="servers_screen_name">سرورز</string>
+    <string name="legal_title">قانونی</string>
+    <string name="privacy_policy">پرائیویسی پالیسی</string>
+    <string name="terms_conditions">شرائط و ضوابط</string>
+    <string name="contact_us">ہم سے رابطہ کریں</string>
+    <string name="others_title">دیگر</string>
+    <string name="leave_rating_review">ریٹنگ/جائزہ چھوڑیں</string>
+    <string name="about_us">ہمارے بارے میں</string>
+    <string name="settings_screen_name">سیٹنگز</string>
+</resources>

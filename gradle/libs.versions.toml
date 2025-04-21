@@ -4,15 +4,15 @@ compileSdkVersion = "35"
 minSdkVersion = "24"
 targetSdkVersion = "34"
 
-agp = "8.5.2"
+agp = "8.6.1"
 cardview = "1.0.0"
-constraintlayout = "2.1.4"
+constraintlayout = "2.2.1"
 gradle = "8.4.2"
 koin = "4.0.0-RC2"
 koin-version = "3.6.0-wasm-alpha2"
 koinAndroid = "3.5.6"
 kotlin = "2.0.20"
-coreKtx = "1.13.1"
+coreKtx = "1.16.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
@@ -20,46 +20,44 @@ kotlinxSerializationJson = "1.7.2"
 ktorClientCio = "2.3.12"
 ktorSerializationKotlinxJson = "2.3.12"
 ktorServerContentNegotiation = "2.3.12"
-orgSerlize = "2.0.10"
-lifecycle = "2.8.6"
-activityCompose = "1.9.2"
-composeBom = "2024.09.02"
+orgSerlize = "2.1.10"
+lifecycle = "2.8.7"
+activityCompose = "1.10.1"
+composeBom = "2025.04.00"
 ktor = "2.3.12"
 sdpCompose = "1.1.0"
-room = "2.6.1"
+room = "2.7.0"
 ktorSerialize = "2.3.12"
 googleServicesVersion = "4.4.2"
-firebaseAnalytics = "22.1.0"
-firebaseCrashlytics = "19.1.0"
-firebaseCrashlyticsGradle = "3.0.2"
-firebasePerf = "21.0.1"
+firebaseAnalytics = "22.4.0"
+firebaseCrashlytics = "19.4.2"
+firebaseCrashlyticsGradle = "3.0.3"
+firebasePerf = "21.0.5"
 perfPlugin = "1.4.2"
-firebaseAppdistributionGradle = "5.0.0"
-firebaseMessaging = "24.0.1"
-firebaseInappmessagingDisplay = "21.0.0"
-firebaseConfig = "22.0.0"
-playServicesAds = "23.3.0"
+firebaseAppdistributionGradle = "5.1.1"
+firebaseMessaging = "24.1.1"
+firebaseInappmessagingDisplay = "21.0.2"
+firebaseConfig = "22.1.0"
+playServicesAds = "24.2.0"
 timber = "5.0.1"
-userMessagingPlatform = "3.0.0"
-workRuntime = "2.9.1"
+userMessagingPlatform = "3.2.0"
+workRuntime = "2.10.0"
 appcompat = "1.7.0"
 material = "1.12.0"
 accompanistNavigationAnimation = "0.34.0"
-animation = "1.7.2"
+animation = "1.7.8"
 jsoupVersion = "1.18.1"
-navigationCompose ="2.8.0-rc01"
+navigationCompose ="2.8.9"
 opencvContrib = "4.5.3.0"
-playServicesMeasurementApi = "22.1.0"
+playServicesMeasurementApi = "22.4.0"
 ksp = "2.0.10-1.0.24"
 coilGif = "2.6.0"
 accompanistSystemuicontroller = "0.30.1"
-firebaseFirestoreKtx = "25.1.1"
+firebaseFirestoreKtx = "25.1.3"
 
 [libraries]
 accompanist-navigation-animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanistNavigationAnimation" }
 androidx-animation = { module = "androidx.compose.animation:animation", version.ref = "animation" }
-androidx-cardview = { module = "androidx.cardview:cardview", version.ref = "cardview" }
-androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
@@ -100,7 +98,6 @@ ktor-client-serialize = { module = "io.ktor:ktor-client-serialization", version.
 
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorSerializationKotlinxJson" }
 ktor-server-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorServerContentNegotiation" }
-opencv-contrib = { module = "com.quickbirdstudios:opencv-contrib", version.ref = "opencvContrib" }
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServicesVersion" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebaseAnalytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }
@@ -122,7 +119,6 @@ androidx-work-runtime = { module = "androidx.work:work-runtime", version.ref = "
 play-services-measurement-api = { group = "com.google.android.gms", name = "play-services-measurement-api", version.ref = "playServicesMeasurementApi" }
 sdp-compose = { module = "com.github.Kaaveh:sdp-compose", version.ref = "sdpCompose" }
 
-androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "room" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
