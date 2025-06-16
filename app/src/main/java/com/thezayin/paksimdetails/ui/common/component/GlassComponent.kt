@@ -31,7 +31,7 @@ fun GlassComponent() {
         .build()
     Image(
         painter = rememberAsyncImagePainter(
-            ImageRequest.Builder(context).data(data = R.drawable.bg_vid).apply(block = {
+            ImageRequest.Builder(context).data(data = R.drawable.bg_video).apply(block = {
                 size(Size.ORIGINAL)
             }).build(), imageLoader = imageLoader
         ),

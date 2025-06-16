@@ -17,17 +17,18 @@ junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 kotlinxSerializationJson = "1.7.2"
-ktorClientCio = "2.3.12"
-ktorSerializationKotlinxJson = "2.3.12"
-ktorServerContentNegotiation = "2.3.12"
+
 orgSerlize = "2.1.10"
 lifecycle = "2.8.7"
 activityCompose = "1.10.1"
 composeBom = "2025.04.00"
 ktor = "2.3.12"
+ktorSerialize = "2.3.12"
+ktorClientCio = "2.3.12"
+ktorSerializationKotlinxJson = "2.3.12"
+ktorServerContentNegotiation = "2.3.12"
 sdpCompose = "1.1.0"
 room = "2.7.0"
-ktorSerialize = "2.3.12"
 googleServicesVersion = "4.4.2"
 firebaseAnalytics = "22.4.0"
 firebaseCrashlytics = "19.4.2"
@@ -95,9 +96,9 @@ ktor-client-android = { module = "io.ktor:ktor-client-android", version.ref = "k
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCio" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging-jvm", version.ref = "ktor" }
 ktor-client-serialize = { module = "io.ktor:ktor-client-serialization", version.ref = "ktorSerialize" }
-
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorSerializationKotlinxJson" }
 ktor-server-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktorServerContentNegotiation" }
+
 google-services = { group = "com.google.gms", name = "google-services", version.ref = "googleServicesVersion" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebaseAnalytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebaseCrashlytics" }

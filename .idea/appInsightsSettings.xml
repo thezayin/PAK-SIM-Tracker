@@ -23,9 +23,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.thezayin.paksimdetails" />
-                  <option name="mobileSdkAppId" value="1:530390776919:android:4442adc18bd2c3665eb712" />
-                  <option name="projectId" value="pak-sim-details-bf05c" />
-                  <option name="projectNumber" value="530390776919" />
+                  <option name="mobileSdkAppId" value="1:868103726977:android:2136a1a4bc242ac6a72a80" />
+                  <option name="projectId" value="pak-sim-tracker-android" />
+                  <option name="projectNumber" value="868103726977" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
